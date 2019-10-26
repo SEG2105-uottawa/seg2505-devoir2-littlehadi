@@ -1,0 +1,219 @@
+//Unable to update umple code due to error at [18,13]
+//Unable to update umple code due to error at [17,13]
+//Unable to update umple code due to error at [16,13]
+//Unable to update umple code due to error at [15,13]
+// UML Class diagram representing a system for taking online orders for Pizza
+
+class Person
+{
+  emailAddress;
+  contactPhoneNumber;
+  name;
+  address;
+}
+
+class Passager
+{
+  isA Person;
+  numClient;
+  1..
+ *-- 1 VerifierIteraire;
+}
+
+class  Autobus{  
+  autoNormaux;
+  autoEtendus;
+  autoImperiale;
+  1 -- 1 Chauffeur;
+  * -- * LigneBus;
+  * -- * CartesPresto;
+    * -- * Trains;
+}
+
+class Itineraire
+{
+    pointOrigine;
+  destination;
+  numeroBus;
+  listeArret;
+  1 -- * LigneBus;
+  * -- * Itineraire poste;
+  1 -- 1 VerifierIteraire;
+}
+
+class Chauffeur
+{
+    isA Person;
+    numeroEmployee;
+  int niveauExperiencee;
+  nbDeTravaille;
+//nbTrvaille;
+1..* -- 1..* Itineraire;
+  1..* -- 1 Status;
+  * -- 1 NiveauExperience;
+  1..* -- 1 QuartTravaille;
+nvAccdient(){}
+ 
+  
+public double nbTrvaille(){
+
+}
+}
+
+class Status
+{
+    amendes;
+  accident;
+  incident;
+}
+
+class  NiveauExperience{  
+      1..* -- 1..* Trains;
+public int niveauExperience(){}
+  //si age = 10 ans methodee
+}
+
+class  Trains{}
+
+//app: apk
+class AccesTransport
+{
+  laisserPasser;
+billetPapier;
+cartePresto;
+  1 <- * Passager;
+  1..* -- 1..* Autobus;
+  * -- * CartesPresto;
+public void laisserPasser(){};
+  }
+
+class CartesPresto
+{
+  public int ArgentReduit(){};
+  int credit;
+  public int NotEnoughFunds(){};
+  }
+
+class HeureDePointe
+{
+    heure;
+  1..* -- 1 Itineraire;
+}
+
+class LigneBus
+{
+  heureDePointe;
+}
+
+class QuartTravaille
+{
+  nbDeTrvaille;
+  public double nbDeOvertime(){};
+}
+
+class VerifierIteraire
+{
+   public double parTelephone(){};
+      public double parApplication(){};
+}
+
+//$?[End_of_model]$?
+
+namespace -;
+
+
+class Person
+{
+  position 217 14 189 104;
+  position.association Passager__Person 71,104 30,0;
+}
+
+class Passager
+{
+  position 20 189 109 91;
+    position.association Passager__VerfierItineraire 123,31 0,26;
+  position.association Passager__VerfierItineraire 145,52 0,50;
+  position.association Passager__VerifierIteraire 123,43 0,36;
+}
+
+class Chauffeur
+{
+  position 606 286 165 139;
+  position.association Chauffeur__Itineraire 0,10 135,0;
+    position.association Chauffeur__Status 114,0 1,107;
+  position.association Chauffeur__NiveauExperience 159,0 5,75;
+  position.association Chauffeur__Status 124,0 43,107;
+  position.association Chauffeur__NiveauExperience 107,0 0,4;
+  position.association Chauffeur__QuartTravaille 0,66 42,0;
+}
+
+class Itineraire
+{
+  position 243 331 134 123;
+  position.association Itineraire__LigneBus 135,0 20,75;
+  position.association Itineraire__Itineraire:roleName 14,0 0,38;
+  position.association Itineraire__Itineraire:poste 0,116 0,78;
+  position.association Itineraire__VerifierIteraire 36,0 63,91;
+}
+
+class Status
+{
+  position 703 19 204 107;
+}
+
+class NiveauExperience
+{
+  position 770 154 166 75;
+  position.association NiveauExperience__Trains 109,75 31,0;
+  position.association NiveauExperience__Trains 119,75 52,0;
+}
+
+class Autobus
+{
+  position 642 463 152 107;
+  position.association Autobus__Chauffeur 57,0 131,139;
+  position.association Autobus__LigneBus 0,30 61,75;
+  position.association Autobus__CartesPresto 112,107 165,81;
+    position.association Autobus__Trains 153,27 45,59;
+}
+
+class Trains
+{
+  position 836 388 109 59;
+}
+
+class AccesTransport
+{
+  position 17 375 151 123;
+  position.association AccesTransport__Passager 65,0 34,75;
+  position.association AccesTransport__Autobus 152,108 0,101;
+  position.association AccesTransport__ArgentReduit 13,123 0,39;
+  position.association AccesTransport__CartesPresto 103,123 84,0;
+  position.association AccesTransport__CartesPresto 73,123 49,0;
+}
+
+class CartesPresto
+{
+  position 41 617 146 91;
+  }
+
+class HeureDePointe
+{
+  position 232 535 112 75;
+  position.association HeureDePointe__Itineraire 88,0 27,123;
+}
+
+class LigneBus
+{
+  position 424 190 150 75;
+}
+
+class QuartTravaille
+{
+  position 398 424 190 91;
+}
+
+class VerifierIteraire
+{
+  position 208 199 109 59;
+}

@@ -8,6 +8,10 @@ import client.ChatClient;
 import common.*;
 import ocsf.client.*;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 /**
  * This class constructs the UI for a chat client.  It implements the
  * chat interface in order to activate the display() method.
@@ -91,11 +95,15 @@ public class ClientConsole implements ChatIF
    *
    * @param message The string to be displayed.
    */
-  public void display(String message) 
-  {
-    System.out.println("> " + message);
-  }
-
+  public void display(String message) {
+  switch (messageType) {
+            case 0:
+                System.out.println("SERVER MESSAGE > " + message);
+                break;
+            default:
+                System.out.println(message);
+              }
+}
   
   //Class methods ***************************************************
   
@@ -106,19 +114,39 @@ public class ClientConsole implements ChatIF
    */
   public static void main(String[] args) 
   {
-    String host = "";
-    int port = 0;  //The port number
+        String host;
+        int port =0; //the port number
+        String username;
 
-    try
-    {
-      host = args[0];
-    }
-    catch(ArrayIndexOutOfBoundsException e)
-    {
-      host = "localhost";
-    }
-    ClientConsole chat= new ClientConsole(host, DEFAULT_PORT);
-    chat.accept();  //Wait for console data
+        /*
+         * Modified for E51
+         * Require a login ID
+         */
+        try {
+            username = args[0];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("No username provided!");
+            System.exit(1);
+            return;
+        }
+
+        try {
+            host = args[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            host = "localhost";
+        }
+
+        /*
+         * Modified for E49
+         * Allow more than just the default port
+         */
+        try {
+            port = Integer.parseInt(args[2]);
+        } catch (Exception e) {
+            port = DEFAULT_PORT;
+        }
+        ClientConsole chat = new ClientConsole(username, host, port);
+        chat.accept();  //Wait for console data
   }
 }
 //End of ConsoleChat class

@@ -45,12 +45,99 @@ public class EchoServer extends AbstractServer
    * @param msg The message received from the client.
    * @param client The connection from which the message originated.
    */
-  public void handleMessageFromClient
-    (Object msg, ConnectionToClient client)
+  public void handleMessageFromClient (Object msg, ConnectionToClient client)
   {
     System.out.println("Message received: " + msg + " from " + client);
     this.sendToAllClients(msg);
   }
+  
+  public void handleMessageFromServerConsole(String input) throws IOException{
+    if(input.startsWith("#")){
+      String[] message = input.split(" ");
+      String toDo = message[0];
+      
+      
+      switch(toDo){
+      case "#quit":
+        
+        try {
+        close();
+      } catch (IOException e) {
+        
+        System.exit(1);
+      }
+       System.exit(0);
+        
+        break;
+        
+      case "#stop":
+        stopListening();
+        break;
+        
+      case "#close":
+        try {
+        close();
+      } catch (IOException e) {
+        
+        e.printStackTrace();
+      }
+        
+        break;
+        
+      case "#setPort":
+        if(getNumberOfClients()==0 && !isListening() ){
+          setPort(Integer.parseInt(message[1]));
+        }
+        else{
+         System.out.println("Cannot set the new port"); 
+        }
+        
+        break;
+        
+      case "#start":
+        if(isListening()){
+          System.out.println("It is already started");
+        }
+        else{
+          try{
+            listen();
+          }
+          catch(IOException e){
+            
+          }
+        }
+        break;
+
+      case "#getport":
+        System.out.println(getPort());
+       break; 
+       
+      case "#number":
+        System.out.println(getNumberOfClients());
+        break;
+        
+      case "#all_users":
+        System.out.println(getClientConnections());
+        break;
+      
+      case "#disconnect":
+       
+        System.out.println("hey");
+        break;
+        
+      case "#wait":
+        setTimeout(Integer.parseInt(message[1]));
+        break;
+        
+      default:
+        System.out.println("That command is not good");
+        break;
+      }}
+    else{
+      sendToAllClients(input);
+    }
+      
+ }
     
   /**
    * This method overrides the one in the superclass.  Called
